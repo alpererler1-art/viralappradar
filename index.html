@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viral App Radar | The Ultimate Digital Arsenal</title>
+    
+    <style>
+        /* CSS Reset & Variables */
+        *, *::before, *::after { box-sizing: border-box; }
+        body { margin: 0; padding: 0; }
+        
+        :root {
+            --bg-body: #0a0e17; /* Very Dark Slate */
+            --bg-card: #111827; /* Slightly Lighter Dark Slate */
+            --text-primary: #f8fafc; /* Near White */
+            --text-secondary: #94a3b8; /* Mid Gray */
+            --border-color: #1f2937; /* Dark Gray Border */
+            --color-cyan: #06b6d4;
+            --color-cyan-hover: #22d3ee;
+            --color-blue: #3b82f6;
+            --color-purple: #a855f7;
+        }
+
+        /* Base Styles */
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* Good system font stack */
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        a { text-decoration: none; color: inherit; transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease; }
+        h1, h2, h3 { margin-top: 0; tracking: tight; }
+        p { margin-top: 0; color: var(--text-secondary); }
+
+        /* Utility Classes */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; width: 100%; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
+        @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 70px;
+            background-color: rgba(17, 24, 39, 0.9); /* transparent bg */
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: -1px; cursor: pointer; color: white;}
+        .logo span.cyan { color: var(--color-cyan); }
+        .nav-links { display: flex; gap: 24px; }
+        @media (max-width: 768px) { .nav-links { display: none; } }
+        .nav-link { font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); }
+        .nav-link:hover { color: var(--color-cyan); }
+
+        /* Hero Section */
+        .hero { padding: 150px 0 100px; text-align: center; }
+        .hero h1 { font-size: 4rem; font-weight: 800; margin-bottom: 24px; line-height: 1.1; }
+        @media (max-width: 768px) { .hero h1 { font-size: 2.5rem; } }
+        .gradient-text {
+            background: linear-gradient(to right, #22d3ee, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p { font-size: 1.25rem; max-width: 650px; margin: 0 auto 40px; }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-align: center;
+        }
+        .btn-cyan {
+            background-color: var(--color-cyan);
+            color: #0f172a; /* dark text on light bg */
+        }
+        .btn-cyan:hover {
+            background-color: var(--color-cyan-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(6, 182, 212, 0.4);
+        }
+
+        /* Sections & Grid */
+        section { padding: 80px 0; }
+        .bg-section { background-color: var(--bg-card); }
+        .section-title-wrap { display: flex; align-items: center; margin-bottom: 40px; }
+        .section-marker { height: 32px; width: 8px; border-radius: 4px; margin-right: 16px; }
+        .section-title { font-size: 2rem; font-weight: 700; text-transform: uppercase; margin: 0; color: var(--text-primary); }
+
+        /* Card Styles */
+        .card {
+            background-color: var(--bg-body); /* cards on grid bg are body color */
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card:hover { transform: translateY(-5px); }
+        .card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
+        .card p { font-size: 0.95rem; margin-bottom: 24px; flex-grow: 1; }
+        .card-icon {
+            font-size: 1.75rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .btn-card {
+            display: block;
+            text-align: center;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            background-color: #1f2937;
+            color: white;
+        }
+
+        /* Specific Color Styling for Categories */
+        /* Privacy section (Cyan) */
+        #privacy .section-marker { background-color: var(--color-cyan); }
+        #privacy .card-icon { color: var(--color-cyan); }
+        #privacy .card:hover { box-shadow: 0 0 20px -5px rgba(6, 182, 212, 0.5); border-color: var(--color-cyan); }
+        #privacy .btn-card:hover { background-color: var(--color-cyan); color: #0f172a; }
+
+        /* Games section (Blue) */
+        #games .section-marker { background-color: var(--color-blue); }
+        #games .card-icon { color: var(--color-blue); }
+        #games .card { background-color: var(--bg-card); } /* opposite grid color */
+        #games .card:hover { box-shadow: 0 0 20px -5px rgba(59, 130, 246, 0.5); border-color: var(--color-blue); }
+        #games .btn-card:hover { background-color: var(--color-blue); color: white; }
+
+        /* Lifestyle section (Purple) */
+        #lifestyle .section-marker { background-color: var(--color-purple); }
+        #lifestyle .card-icon { color: var(--color-purple); }
+        #lifestyle .card:hover { box-shadow: 0 0 20px -5px rgba(168, 85, 247, 0.5); border-color: var(--color-purple); }
+        #lifestyle .btn-card:hover { background-color: var(--color-purple); color: white; }
+
+        /* Footer */
+        footer { padding: 60px 0 30px; border-top: 1px solid var(--border-color); text-align: center; }
+        footer .logo { font-size: 1.75rem; margin-bottom: 16px; color: #475569; }
+        footer p { font-size: 0.85rem; color: #475569; max-width: 700px; margin: 0 auto 32px; }
+        .footer-links { display: flex; gap: 32px; justify-content: center; margin-bottom: 32px; flex-wrap: wrap; }
+        .footer-link { font-size: 0.9rem; color: var(--text-secondary); }
+        .footer-link:hover { color: var(--color-cyan); }
+        .copyright { font-size: 0.75rem; color: #334155; margin-top: 40px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <div class="logo">Viral<span class="cyan">App</span>Radar</div>
+            <nav class="nav-links">
+                <a href="#privacy" class="nav-link">Privacy & Tech</a>
+                <a href="#games" class="nav-link">Top Mobile Games</a>
+                <a href="#lifestyle" class="nav-link">Social & Lifestyle</a>
+            </nav>
+        </div>
+    </header>
+    <section class="hero">
+        <div class="container">
+            <h1>Equip Your <span class="gradient-text">Digital Arsenal</span></h1>
+            <p>We track the hidden gems, top-tier privacy tools, and high-adrenaline mobile games. Don't scroll blindly. Discover what actually works.</p>
+            <a href="#privacy" class="btn btn-cyan">Explore The Radar</a>
+        </div>
+    </section>
+    <section id="privacy" class="bg-section">
+        <div class="container">
+            <div class="section-title-wrap">
+                <div class="section-marker"></div>
+                <h2 class="section-title">Privacy & Tech</h2>
+            </div>
+            <div class="grid">
+                <div class="card">
+                    <div>
+                        <span class="card-icon">🔒</span>
+                        <h3>GhostShield VPN</h3>
+                        <p>Military-grade encryption. Leave zero footprint on public networks.</p>
+                    </div>
+                    <a href="#" class="btn-card">Get Secured Now</a>
+                </div>
+                </div>
+        </div>
+    </section>
+    <section id="games">
+        <div class="container">
+            <div class="section-title-wrap">
+                <div class="section-marker"></div>
+                <h2 class="section-title">Top Mobile Games</h2>
+            </div>
+            <div class="grid">
+                <div class="card">
+                    <div>
+                        <span class="card-icon">⚔️</span>
+                        <h3>Empire Strategy Mobile</h3>
+                        <p>Build your legacy, crush your rivals. The ultimate strategy experience.</p>
+                    </div>
+                    <a href="#" class="btn-card">Play For Free</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="lifestyle" class="bg-section">
+        <div class="container">
+            <div class="section-title-wrap">
+                <div class="section-marker"></div>
+                <h2 class="section-title">Social & Lifestyle</h2>
+            </div>
+            <div class="grid">
+                <div class="card">
+                    <div>
+                        <span class="card-icon">🍸</span>
+                        <h3>Elite Connect</h3>
+                        <p>Skip the endless swiping. Connect with verified people tonight.</p>
+                    </div>
+                    <a href="#" class="btn-card">Join The Club</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <div class="logo">ViralAppRadar</div>
+            <p>Disclaimer: We are an independent software radar and review platform. Some links on this site are affiliate links, meaning we may earn a small commission if you decide to download or purchase through our links, at no extra cost to you.</p>
+            <div class="footer-links">
+                <a href="#" class="footer-link">Privacy Policy</a>
+                <a href="#" class="footer-link">Terms of Service</a>
+                <a href="#" class="footer-link">Contact</a>
+            </div>
+            <p class="copyright">© 2026 ViralAppRadar. All rights reserved.</p>
+        </div>
+    </footer>
+    </body>
+</html>
